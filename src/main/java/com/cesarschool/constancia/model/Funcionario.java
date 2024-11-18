@@ -1,16 +1,22 @@
 package com.cesarschool.constancia.model;
 
-import java.util.Date;
-import java.util.List;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
+@Data
+@NoArgsConstructor
 public class Funcionario {
     private String cpf;
     private String nome;
     private String cargo;
     private Date dataNasc;
-    private String endereco;
-    private List<String> telefones; // Associação com Telefone_Funcionario
-
-    // Getters e setters
+    private String cep;
+    private String bairro;
+    private String rua;
+    private String numero;
+    private String complemento;
+    private String supervisorCpf; // Relacionamento com outro Funcionario
 }
 
