@@ -3,6 +3,8 @@ package com.cesarschool.constancia.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 public class Produto {
@@ -13,6 +15,10 @@ public class Produto {
     private String cfop;
     private int estoque;
     private int produtoTipo;
+    private BigDecimal preco;
+
+    public void setPreco(BigDecimal preco) {
+    }
 }
 
 // Falta criar preco

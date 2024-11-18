@@ -9,4 +9,3 @@ public class Avalia {
     private String clienteCpf; // Relacionamento com Cliente
     private int compraNumero;  // Relacionamento com CompraNotaFiscal
 }
-
