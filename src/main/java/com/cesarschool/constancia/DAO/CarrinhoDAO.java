@@ -1,6 +1,8 @@
 package com.cesarschool.constancia.DAO;
 
 import com.cesarschool.constancia.model.Carrinho;
+import com.cesarschool.constancia.config.DatabaseConnection;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,11 +11,16 @@ import java.util.List;
 @Repository
 public class CarrinhoDAO {
 
-    private final Connection connection;
+    private Connection connection;
 
-    // Construtor para inicializar a conexão
-    public CarrinhoDAO(Connection connection) {
-        this.connection = connection;
+    public CarrinhoDAO() {
+        try {
+            // Usando a classe DatabaseConnection para obter a conexão
+            this.connection = DatabaseConnection.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao conectar ao banco de dados.");
+        }
     }
 
     // Método para inserir um carrinho
@@ -95,4 +102,3 @@ public class CarrinhoDAO {
         return carrinhos;
     }
 }
-

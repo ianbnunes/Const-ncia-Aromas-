@@ -21,7 +21,7 @@ public class FuncionarioDAO {
         funcionario.setCpf(rs.getString("cpf"));
         funcionario.setNome(rs.getString("nome"));
         funcionario.setCargo(rs.getString("cargo"));
-        funcionario.setDataNasc(rs.getDate("data_nasc").toLocalDate());
+        funcionario.setIdade(rs.getString("idade"));
         funcionario.setCep(rs.getString("cep"));
         funcionario.setBairro(rs.getString("bairro"));
         funcionario.setRua(rs.getString("rua"));
@@ -45,15 +45,15 @@ public class FuncionarioDAO {
         String sql = "INSERT INTO Funcionario (cpf, nome, cargo, idade, cep, bairro, rua, numero, complemento, supervisor_cpf) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, funcionario.getCpf(), funcionario.getNome(), funcionario.getCargo(),
-                funcionario.getDataNasc(), funcionario.getCep(), funcionario.getBairro(),
+                funcionario.getIdade(), funcionario.getCep(), funcionario.getBairro(),
                 funcionario.getRua(), funcionario.getNumero(), funcionario.getComplemento(),
                 funcionario.getSupervisorCpf());
     }
 
     public void editarFuncionario(Funcionario funcionario) {
-        String sql = "UPDATE Funcionario SET nome = ?, cargo = ?, data_nasc = ?, cep = ?, bairro = ?, rua = ?, numero = ?, complemento = ?, supervisor_cpf = ? " +
+        String sql = "UPDATE Funcionario SET nome = ?, cargo = ?, idade = ?, cep = ?, bairro = ?, rua = ?, numero = ?, complemento = ?, supervisor_cpf = ? " +
                 "WHERE cpf = ?";
-        jdbcTemplate.update(sql, funcionario.getNome(), funcionario.getCargo(), funcionario.getDataNasc(),
+        jdbcTemplate.update(sql, funcionario.getNome(), funcionario.getCargo(), funcionario.getIdade(),
                 funcionario.getCep(), funcionario.getBairro(), funcionario.getRua(),
                 funcionario.getNumero(), funcionario.getComplemento(), funcionario.getSupervisorCpf(),
                 funcionario.getCpf());
