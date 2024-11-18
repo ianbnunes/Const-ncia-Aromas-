@@ -42,7 +42,7 @@ public class FuncionarioDAO {
     }
 
     public void salvarFuncionario(Funcionario funcionario) {
-        String sql = "INSERT INTO Funcionario (cpf, nome, cargo, data_nasc, cep, bairro, rua, numero, complemento, supervisor_cpf) " +
+        String sql = "INSERT INTO Funcionario (cpf, nome, cargo, idade, cep, bairro, rua, numero, complemento, supervisor_cpf) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, funcionario.getCpf(), funcionario.getNome(), funcionario.getCargo(),
                 funcionario.getDataNasc(), funcionario.getCep(), funcionario.getBairro(),
