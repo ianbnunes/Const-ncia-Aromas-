@@ -1,7 +1,5 @@
 package com.cesarschool.constancia.model;
 
-package model;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
