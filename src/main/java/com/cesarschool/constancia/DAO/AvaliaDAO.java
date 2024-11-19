@@ -24,16 +24,18 @@ public class AvaliaDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, avalia.getClienteCpf());
             stmt.setInt(2, avalia.getCompraNumero());
+            stmt.setInt(3, avalia.getNota()); // Adiciona o campo 'nota' como inteiro
             stmt.executeUpdate();
         }
     }
 
     // Método para atualizar uma avaliação
     public void atualizarAvalia(Avalia avalia) throws SQLException {
-        String sql = "UPDATE avalia SET fk_Compra_numero = ? WHERE fk_Cliente_cpf = ?";
+        String sql = "UPDATE avalia SET fk_Compra_numero = ?, nota = ? WHERE fk_Cliente_cpf = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, avalia.getCompraNumero());
-            stmt.setString(2, avalia.getClienteCpf());
+            stmt.setInt(2, avalia.getNota()); // Atualiza o campo 'nota' como inteiro
+            stmt.setString(3, avalia.getClienteCpf());
             stmt.executeUpdate();
         }
     }
@@ -57,6 +59,7 @@ public class AvaliaDAO {
                     Avalia avalia = new Avalia();
                     avalia.setClienteCpf(rs.getString("fk_Cliente_cpf"));
                     avalia.setCompraNumero(rs.getInt("fk_Compra_numero"));
+                    avalia.setNota(rs.getInt("nota")); // Recupera o campo 'nota' como inteiro
                     return avalia;
                 }
             }
@@ -74,6 +77,7 @@ public class AvaliaDAO {
                 Avalia avalia = new Avalia();
                 avalia.setClienteCpf(rs.getString("fk_Cliente_cpf"));
                 avalia.setCompraNumero(rs.getInt("fk_Compra_numero"));
+                avalia.setNota(rs.getInt("nota")); // Recupera o campo 'nota' como inteiro
                 avaliacoes.add(avalia);
             }
         }
