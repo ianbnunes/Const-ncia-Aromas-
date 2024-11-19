@@ -20,7 +20,7 @@ public class AvaliaDAO {
 
     // Método para inserir uma avaliação
     public void inserirAvalia(Avalia avalia) throws SQLException {
-        String sql = "INSERT INTO avalia (fk_Cliente_cpf, fk_Compra_numero) VALUES (?, ?)";
+        String sql = "INSERT INTO avalia (fk_Cliente_cpf, fk_Compra_numero, nota) VALUES (?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, avalia.getClienteCpf());
             stmt.setInt(2, avalia.getCompraNumero());

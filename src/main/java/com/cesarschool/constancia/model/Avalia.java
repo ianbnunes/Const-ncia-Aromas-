@@ -7,5 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Avalia {
     private String clienteCpf; // Relacionamento com Cliente
+    private int nota;
     private int compraNumero;  // Relacionamento com CompraNotaFiscal
 }
