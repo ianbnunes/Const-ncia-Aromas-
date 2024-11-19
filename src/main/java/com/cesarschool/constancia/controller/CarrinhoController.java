@@ -1,7 +1,7 @@
 package com.cesarschool.constancia.controller;
 
-import com.cesarschool.constancia.DAO.CarrinhoDAO;
 import com.cesarschool.constancia.model.Carrinho;
+import com.cesarschool.constancia.service.CarrinhoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,13 +13,13 @@ import java.util.List;
 public class CarrinhoController {
 
     @Autowired
-    private CarrinhoDAO carrinhoDAO; // Certifique-se de que CarrinhoDAO está anotado com @Repository
+    private CarrinhoService carrinhoService;
 
     // Listar todos os carrinhos
     @GetMapping
     public List<Carrinho> listarCarrinhos() {
         try {
-            return carrinhoDAO.listarCarrinhos();
+            return carrinhoService.listarCarrinhos();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar carrinhos: " + e.getMessage());
         }
@@ -29,7 +29,7 @@ public class CarrinhoController {
     @GetMapping("/{idCarrinho}")
     public Carrinho buscarCarrinhoPorId(@PathVariable int idCarrinho) {
         try {
-            return carrinhoDAO.buscarCarrinhoPorId(idCarrinho);
+            return carrinhoService.buscarCarrinhoPorId(idCarrinho);
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar carrinho: " + e.getMessage());
         }
@@ -39,7 +39,7 @@ public class CarrinhoController {
     @PostMapping
     public String criarCarrinho(@RequestBody Carrinho carrinho) {
         try {
-            carrinhoDAO.inserirCarrinho(carrinho);
+            carrinhoService.criarCarrinho(carrinho);
             return "Carrinho criado com sucesso!";
         } catch (SQLException e) {
             return "Erro ao criar carrinho: " + e.getMessage();
@@ -50,8 +50,7 @@ public class CarrinhoController {
     @PutMapping("/{idCarrinho}")
     public String atualizarCarrinho(@PathVariable int idCarrinho, @RequestBody Carrinho carrinho) {
         try {
-            carrinho.setIdCarrinho(idCarrinho); // Garante que o ID da URL seja usado
-            carrinhoDAO.atualizarCarrinho(carrinho);
+            carrinhoService.atualizarCarrinho(idCarrinho, carrinho);
             return "Carrinho atualizado com sucesso!";
         } catch (SQLException e) {
             return "Erro ao atualizar carrinho: " + e.getMessage();
@@ -62,11 +61,10 @@ public class CarrinhoController {
     @DeleteMapping("/{idCarrinho}")
     public String deletarCarrinho(@PathVariable int idCarrinho) {
         try {
-            carrinhoDAO.excluirCarrinho(idCarrinho);
+            carrinhoService.deletarCarrinho(idCarrinho);
             return "Carrinho deletado com sucesso!";
         } catch (SQLException e) {
             return "Erro ao deletar carrinho: " + e.getMessage();
         }
     }
 }
-

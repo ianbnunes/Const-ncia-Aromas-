@@ -9,8 +9,10 @@ public class Cliente {
     private String cpf;
     private String nome;
     private int telefoneId; // Relacionamento com a tabela Telefone
+    private String telefone;
     private String email;
     private String senha;
-    private int enderecoId; // Relacionamento com a tabela Endereco
-}
+    private int enderecoId; // Relacionamento com a tabela Endereço
+    }
+
 
