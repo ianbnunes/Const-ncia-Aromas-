@@ -19,7 +19,7 @@ public class CompraNotaFiscalDAO {
 
     // Método para inserir uma compra/nota fiscal
     public void inserirCompraNotaFiscal(CompraNotaFiscal compraNotaFiscal) throws SQLException {
-        String sql = "INSERT INTO CompraNotaFiscal (numero, data, valor, status, nota, descItens, cpfCnpjComprador, dataEmissao) " +
+        String sql = "INSERT INTO compra_notafiscal (numero, data, valor, status, nota, desc_itens, cpf_cnpj_comprador, data_emissao) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, compraNotaFiscal.getNumero());
@@ -36,8 +36,8 @@ public class CompraNotaFiscalDAO {
 
     // Método para atualizar uma compra/nota fiscal
     public void atualizarCompraNotaFiscal(CompraNotaFiscal compraNotaFiscal) throws SQLException {
-        String sql = "UPDATE CompraNotaFiscal SET data = ?, valor = ?, status = ?, nota = ?, descItens = ?, " +
-                "cpfCnpjComprador = ?, dataEmissao = ? WHERE numero = ?";
+        String sql = "UPDATE compra_notafiscal SET data = ?, valor = ?, status = ?, nota = ?, desc_itens = ?, " +
+                "cpf_cnpj_comprador = ?, data_emissao = ? WHERE numero = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setDate(1, new java.sql.Date(compraNotaFiscal.getData().getTime()));
             stmt.setDouble(2, compraNotaFiscal.getValor());
@@ -53,7 +53,7 @@ public class CompraNotaFiscalDAO {
 
     // Método para excluir uma compra/nota fiscal pelo número
     public void excluirCompraNotaFiscal(int numero) throws SQLException {
-        String sql = "DELETE FROM CompraNotaFiscal WHERE numero = ?";
+        String sql = "DELETE FROM compra_notafiscal WHERE numero = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, numero);
             stmt.executeUpdate();
@@ -62,7 +62,7 @@ public class CompraNotaFiscalDAO {
 
     // Método para buscar uma compra/nota fiscal pelo número
     public CompraNotaFiscal buscarCompraNotaFiscalPorNumero(int numero) throws SQLException {
-        String sql = "SELECT * FROM CompraNotaFiscal WHERE numero = ?";
+        String sql = "SELECT * FROM compra_notafiscal WHERE numero = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, numero);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -73,9 +73,9 @@ public class CompraNotaFiscalDAO {
                     compraNotaFiscal.setValor(rs.getDouble("valor"));
                     compraNotaFiscal.setStatus(rs.getString("status"));
                     compraNotaFiscal.setNota(rs.getString("nota"));
-                    compraNotaFiscal.setDescItens(rs.getString("descItens"));
-                    compraNotaFiscal.setCpfCnpjComprador(rs.getString("cpfCnpjComprador"));
-                    compraNotaFiscal.setDataEmissao(rs.getDate("dataEmissao"));
+                    compraNotaFiscal.setDescItens(rs.getString("desc_itens"));
+                    compraNotaFiscal.setCpfCnpjComprador(rs.getString("cpf_cnpj_comprador"));
+                    compraNotaFiscal.setDataEmissao(rs.getDate("data_emissao"));
                     return compraNotaFiscal;
                 }
             }
@@ -86,7 +86,7 @@ public class CompraNotaFiscalDAO {
     // Método para listar todas as compras/notas fiscais
     public List<CompraNotaFiscal> listarComprasNotasFiscais() throws SQLException {
         List<CompraNotaFiscal> lista = new ArrayList<>();
-        String sql = "SELECT * FROM CompraNotaFiscal";
+        String sql = "SELECT * FROM compra_notafiscal";
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -96,13 +96,12 @@ public class CompraNotaFiscalDAO {
                 compraNotaFiscal.setValor(rs.getDouble("valor"));
                 compraNotaFiscal.setStatus(rs.getString("status"));
                 compraNotaFiscal.setNota(rs.getString("nota"));
-                compraNotaFiscal.setDescItens(rs.getString("descItens"));
-                compraNotaFiscal.setCpfCnpjComprador(rs.getString("cpfCnpjComprador"));
-                compraNotaFiscal.setDataEmissao(rs.getDate("dataEmissao"));
+                compraNotaFiscal.setDescItens(rs.getString("desc_itens"));
+                compraNotaFiscal.setCpfCnpjComprador(rs.getString("cpf_cnpj_comprador"));
+                compraNotaFiscal.setDataEmissao(rs.getDate("data_emissao"));
                 lista.add(compraNotaFiscal);
             }
         }
         return lista;
     }
 }
-

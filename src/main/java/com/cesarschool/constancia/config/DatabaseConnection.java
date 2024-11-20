@@ -12,7 +12,7 @@ public class DatabaseConnection {
 
     private static final String URL = "jdbc:mysql://localhost:3306/constancia";
     private static final String USER = "root";
-    private static final String PASSWORD = "0511";
+    private static final String PASSWORD = "admin";
 
     @Bean
     public static Connection getConnection() throws SQLException {

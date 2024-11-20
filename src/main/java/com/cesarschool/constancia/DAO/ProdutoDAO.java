@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+
 @Repository
 public class ProdutoDAO {
 
@@ -23,46 +24,54 @@ public class ProdutoDAO {
         produto.setCodigo(rs.getInt("codigo"));
         produto.setCategoria(rs.getString("categoria"));
         produto.setMarca(rs.getString("marca"));
-        produto.setNcm(rs.getString("ncm"));
-        produto.setCfop(rs.getString("cfop"));
+        produto.setNcm(rs.getString("NCM"));
+        produto.setCfop(rs.getString("CFOP"));
         produto.setEstoque(rs.getInt("estoque"));
-        produto.setProdutoTipo(rs.getInt("produtoTipo"));
+        produto.setProdutoTipo(rs.getInt("Produto_TIPO"));
         produto.setPreco(rs.getBigDecimal("preco"));
         return produto;
     };
 
-
     public List<Produto> findAll() {
-        String sql = "SELECT * FROM Produto";
+        String sql = "SELECT * FROM produto"; // Corrigido para "produto" (nome da tabela no banco)
         return jdbcTemplate.query(sql, rowMapper);
     }
 
-
     public Produto findByCodigo(int codigo) {
-        String sql = "SELECT * FROM Produto WHERE codigo = ?";
+        String sql = "SELECT * FROM produto WHERE codigo = ?"; // Corrigido para "produto"
         return jdbcTemplate.queryForObject(sql, rowMapper, codigo);
     }
 
-
     public void salvarProduto(Produto produto) {
-        String sql = "INSERT INTO Produto (categoria, marca, ncm, cfop, estoque, produtoTipo, preco) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, produto.getCategoria(), produto.getMarca(), produto.getNcm(),
-                produto.getCfop(), produto.getEstoque(), produto.getProdutoTipo(), produto.getPreco());
+        String sql = "INSERT INTO produto (categoria, marca, NCM, CFOP, estoque, Produto_TIPO, preco) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)"; // Corrigido os nomes das colunas para coincidir com a tabela
+        jdbcTemplate.update(sql,
+                produto.getCategoria(),
+                produto.getMarca(),
+                produto.getNcm(),
+                produto.getCfop(),
+                produto.getEstoque(),
+                produto.getProdutoTipo(),
+                produto.getPreco());
     }
-
 
     public void editarProduto(Produto produto) {
-        String sql = "UPDATE Produto SET categoria = ?, marca = ?, ncm = ?, cfop = ?, estoque = ?, produtoTipo = ?, preco = ? " +
-                "WHERE codigo = ?";
-        jdbcTemplate.update(sql, produto.getCategoria(), produto.getMarca(), produto.getNcm(),
-                produto.getCfop(), produto.getEstoque(), produto.getProdutoTipo(),
-                produto.getPreco(), produto.getCodigo());
+        String sql = "UPDATE produto SET categoria = ?, marca = ?, NCM = ?, CFOP = ?, estoque = ?, Produto_TIPO = ?, preco = ? " +
+                "WHERE codigo = ?"; // Corrigido para "produto"
+        jdbcTemplate.update(sql,
+                produto.getCategoria(),
+                produto.getMarca(),
+                produto.getNcm(),
+                produto.getCfop(),
+                produto.getEstoque(),
+                produto.getProdutoTipo(),
+                produto.getPreco(),
+                produto.getCodigo());
     }
 
-
     public void deletarProduto(int codigo) {
-        String sql = "DELETE FROM Produto WHERE codigo = ?";
+        String sql = "DELETE FROM produto WHERE codigo = ?"; // Corrigido para "produto"
         jdbcTemplate.update(sql, codigo);
     }
 }
+

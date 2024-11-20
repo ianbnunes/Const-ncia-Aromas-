@@ -25,7 +25,7 @@ public class CarrinhoDAO {
 
     // Método para inserir um carrinho
     public void inserirCarrinho(Carrinho carrinho) throws SQLException {
-        String sql = "INSERT INTO Carrinho (idCarrinho, qtdProdutos, dataAlteracao, dataCriacao, clienteCpf, produtoCodigo) " +
+        String sql = "INSERT INTO Carrinho (idCarrinho, qtdProdutos, dataAlteracao, dataCriacao, fk_Cliente_cpf, fk_Produto_codigo) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, carrinho.getIdCarrinho());
@@ -40,7 +40,7 @@ public class CarrinhoDAO {
 
     // Método para atualizar um carrinho
     public void atualizarCarrinho(Carrinho carrinho) throws SQLException {
-        String sql = "UPDATE Carrinho SET qtdProdutos = ?, dataAlteracao = ?, clienteCpf = ?, produtoCodigo = ? " +
+        String sql = "UPDATE Carrinho SET qtdProdutos = ?, dataAlteracao = ?, fk_Cliente_cpf = ?, fk_Produto_codigo = ? " +
                 "WHERE idCarrinho = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, carrinho.getQtdProdutos());
@@ -73,8 +73,8 @@ public class CarrinhoDAO {
                     carrinho.setQtdProdutos(rs.getInt("qtdProdutos"));
                     carrinho.setDataAlteracao(rs.getDate("dataAlteracao"));
                     carrinho.setDataCriacao(rs.getDate("dataCriacao"));
-                    carrinho.setClienteCpf(rs.getString("clienteCpf"));
-                    carrinho.setProdutoCodigo(rs.getInt("produtoCodigo"));
+                    carrinho.setClienteCpf(rs.getString("fk_Cliente_cpf"));
+                    carrinho.setProdutoCodigo(rs.getInt("fk_Produto_codigo"));
                     return carrinho;
                 }
             }
@@ -94,8 +94,8 @@ public class CarrinhoDAO {
                 carrinho.setQtdProdutos(rs.getInt("qtdProdutos"));
                 carrinho.setDataAlteracao(rs.getDate("dataAlteracao"));
                 carrinho.setDataCriacao(rs.getDate("dataCriacao"));
-                carrinho.setClienteCpf(rs.getString("clienteCpf"));
-                carrinho.setProdutoCodigo(rs.getInt("produtoCodigo"));
+                carrinho.setClienteCpf(rs.getString("fk_Cliente_cpf"));
+                carrinho.setProdutoCodigo(rs.getInt("fk_Produto_codigo"));
                 carrinhos.add(carrinho);
             }
         }

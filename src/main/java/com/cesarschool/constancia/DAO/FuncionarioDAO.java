@@ -16,51 +16,71 @@ public class FuncionarioDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    // Mapeamento de linhas para objetos Funcionario
     private final RowMapper<Funcionario> rowMapper = (ResultSet rs, int rowNum) -> {
         Funcionario funcionario = new Funcionario();
         funcionario.setCpf(rs.getString("cpf"));
         funcionario.setNome(rs.getString("nome"));
         funcionario.setCargo(rs.getString("cargo"));
-        funcionario.setIdade(rs.getString("idade"));
         funcionario.setCep(rs.getString("cep"));
         funcionario.setBairro(rs.getString("bairro"));
         funcionario.setRua(rs.getString("rua"));
         funcionario.setNumero(rs.getString("numero"));
         funcionario.setComplemento(rs.getString("complemento"));
         funcionario.setSupervisorCpf(rs.getString("supervisor_cpf"));
+        funcionario.setIdade(rs.getString("idade")); // Ajustado para VARCHAR(100)
         return funcionario;
     };
 
+    // Lista todos os funcionários
     public List<Funcionario> findAll() {
-        String sql = "SELECT * FROM Funcionario";
+        String sql = "SELECT * FROM funcionario";
         return jdbcTemplate.query(sql, rowMapper);
     }
 
+    // Busca um funcionário pelo CPF
     public Funcionario findByCpf(String cpf) {
-        String sql = "SELECT * FROM Funcionario WHERE cpf = ?";
+        String sql = "SELECT * FROM funcionario WHERE cpf = ?";
         return jdbcTemplate.queryForObject(sql, rowMapper, cpf);
     }
 
+    // Salva um novo funcionário
     public void salvarFuncionario(Funcionario funcionario) {
-        String sql = "INSERT INTO Funcionario (cpf, nome, cargo, idade, cep, bairro, rua, numero, complemento, supervisor_cpf) " +
+        String sql = "INSERT INTO funcionario (cpf, nome, cargo, cep, bairro, rua, numero, complemento, supervisor_cpf, idade) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, funcionario.getCpf(), funcionario.getNome(), funcionario.getCargo(),
-                funcionario.getIdade(), funcionario.getCep(), funcionario.getBairro(),
-                funcionario.getRua(), funcionario.getNumero(), funcionario.getComplemento(),
-                funcionario.getSupervisorCpf());
+        jdbcTemplate.update(sql,
+                funcionario.getCpf(),
+                funcionario.getNome(),
+                funcionario.getCargo(),
+                funcionario.getCep(),
+                funcionario.getBairro(),
+                funcionario.getRua(),
+                funcionario.getNumero(),
+                funcionario.getComplemento(),
+                funcionario.getSupervisorCpf(),
+                funcionario.getIdade()); // Ajustado para VARCHAR(100)
     }
 
+    // Atualiza um funcionário existente
     public void editarFuncionario(Funcionario funcionario) {
-        String sql = "UPDATE Funcionario SET nome = ?, cargo = ?, idade = ?, cep = ?, bairro = ?, rua = ?, numero = ?, complemento = ?, supervisor_cpf = ? " +
+        String sql = "UPDATE funcionario SET nome = ?, cargo = ?, cep = ?, bairro = ?, rua = ?, numero = ?, complemento = ?, supervisor_cpf = ?, idade = ? " +
                 "WHERE cpf = ?";
-        jdbcTemplate.update(sql, funcionario.getNome(), funcionario.getCargo(), funcionario.getIdade(),
-                funcionario.getCep(), funcionario.getBairro(), funcionario.getRua(),
-                funcionario.getNumero(), funcionario.getComplemento(), funcionario.getSupervisorCpf(),
+        jdbcTemplate.update(sql,
+                funcionario.getNome(),
+                funcionario.getCargo(),
+                funcionario.getCep(),
+                funcionario.getBairro(),
+                funcionario.getRua(),
+                funcionario.getNumero(),
+                funcionario.getComplemento(),
+                funcionario.getSupervisorCpf(),
+                funcionario.getIdade(), // Ajustado para VARCHAR(100)
                 funcionario.getCpf());
     }
 
+    // Deleta um funcionário pelo CPF
     public void deletarFuncionario(String cpf) {
-        String sql = "DELETE FROM Funcionario WHERE cpf = ?";
+        String sql = "DELETE FROM funcionario WHERE cpf = ?";
         jdbcTemplate.update(sql, cpf);
     }
 }

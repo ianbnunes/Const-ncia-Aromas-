@@ -16,9 +16,6 @@ public class Produto {
     private int estoque;
     private int produtoTipo;
     private BigDecimal preco;
-
-    public void setPreco(BigDecimal preco) {
-    }
 }
 
 // Falta criar preco
